@@ -107,12 +107,20 @@ void getAdsError(void) {
 // ERROR CODE 2: I2C bus error. Could not clear. sclPin clock line held low by slave clock for > 2sec
 // ERROR CODE 3: I2C bus error. Could not clear. sdaPin data line held low
 void i2cResetState(void) {
-  if (digitalRead(PIN_WIRE_SDA) != HIGH || digitalRead(PIN_WIRE_SCL) != HIGH || !ADS.isConnected()) {
-Serial.print("digitalRead(PIN_WIRE_SDA) = ");
-Serial.println(digitalRead(PIN_WIRE_SDA));
-Serial.print("digitalRead(PIN_WIRE_SCL) = ");
-Serial.println(digitalRead(PIN_WIRE_SCL));
-Serial.print("!ADS.isConnected() = ");
+  int a = digitalRead(PIN_WIRE_SDA);
+  int b = digitalRead(PIN_WIRE_SCL);
+  int c = ADS.isConnected();
+  if ( a || !b || !c /*digitalRead(PIN_WIRE_SDA) != LOW || digitalRead(PIN_WIRE_SCL) || !ADS.isConnected()*/) {
+Serial.print("a = ");
+Serial.print("\t");
+Serial.print(digitalRead(PIN_WIRE_SDA));
+Serial.print("\t");
+Serial.print("b = ");
+Serial.print("\t");
+Serial.print(digitalRead(PIN_WIRE_SCL));
+Serial.print("\t");
+Serial.print("c = ");
+Serial.print("\t");
 Serial.println(ADS.isConnected());
 
     LOG_INFO("Reset I2C pins");
@@ -123,5 +131,11 @@ Serial.println(ADS.isConnected());
       result == 0 ? adsInit() : lcdShowPopup(tmp);
     }
     delay(50);
-  }
+  } else {
+  Serial.print("digitalRead(PIN_WIRE_SDA) = ");
+Serial.println(digitalRead(PIN_WIRE_SDA));
+Serial.print("digitalRead(PIN_WIRE_SCL) = ");
+Serial.println(digitalRead(PIN_WIRE_SCL));
+Serial.print("!ADS.isConnected() = ");
+Serial.println(ADS.isConnected());}
 }
