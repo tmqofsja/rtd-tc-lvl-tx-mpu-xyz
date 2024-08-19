@@ -105,7 +105,6 @@ static void sensorsReadTemperature(void)
 static void sensorsReadPressure(void)
 {
   uint32_t elapsedTime = millis() - pressureTimer;
-  tcaselect(1); //Adafruit TCA9548A I2C Multiplexer module
   if (elapsedTime > GET_PRESSURE_READ_EVERY)
   {
     float elapsedTimeSec = elapsedTime / 1000.f;

@@ -22,7 +22,7 @@
 #include "tca9548a.h"
 
 #if defined SINGLE_BOARD
-ADS1015 ADS;//(0x48);
+ADS1015 ADS(0x48);
 #else
 ADS1115 ADS(0x48);
 #endif
@@ -46,6 +46,8 @@ float getPressure(void) {  //returns sensor pressure data
   // pressure gauge range 0-1.2MPa - 0-12 bar
   // 1 bar = 17.1 or 68.27 or 1777.8
   // 166-1500 =0 to 12
+  
+  tcaselect(1); //Adafruit TCA9548A I2C Multiplexer module
 
   getAdsError();
 
