@@ -33,10 +33,8 @@ TOF::TOF() {}
 
 void TOF::init(SensorState& sensor) {
   #ifdef TOF_VL53L0X
-
-  tcaselect(2);//Adafruit TCA9548A I2C Multiplexer module
-  
   while(!sensor.tofReady) {
+    tcaselect(2);//Adafruit TCA9548A I2C Multiplexer module
     sensor.tofReady = tof_sensor.begin(0x29, false, &Wire, Adafruit_VL53L0X::VL53L0X_SENSE_HIGH_ACCURACY);
   }
   tof_sensor.startRangeContinuous();
